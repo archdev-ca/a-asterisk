@@ -1,4 +1,4 @@
-import { Cell } from '../types';
+import { Cell } from './types';
 
 let app = "";
 
