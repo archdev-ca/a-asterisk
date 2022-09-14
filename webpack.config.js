@@ -24,15 +24,6 @@ module.exports = {
       },
      },
      {
-      loader: "postcss-loader",
-      options: {
-       sourceMap: true,
-       postcssOptions: {
-        config: "postcss.config.js",
-       },
-      },
-     },
-     {
       loader: "sass-loader",
       options: { sourceMap: true },
      },
