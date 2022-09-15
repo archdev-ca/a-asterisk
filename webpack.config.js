@@ -1,11 +1,17 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
  mode: "development",
- entry: "./src/app.ts",
+ entry: {
+  app: "./src/app.ts",
+  hot: "webpack/hot/dev-server.js",
+  client: "webpack-dev-server/client/index.js?hot=true&live-reload=true",
+ },
  devServer: {
   static: "./dist",
-  webSocketServer: false,
+  hot: false,
+  client: false,
  },
  module: {
   rules: [
@@ -28,8 +34,11 @@ module.exports = {
    },
   ],
  },
+ plugins: [new webpack.HotModuleReplacementPlugin()],
  output: {
-  filename: "app.js",
+  filename: "[name].js",
   path: path.resolve(__dirname, "dist/js"),
+  clean: true,
+  publicPath: "js/",
  },
 };
