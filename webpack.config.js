@@ -1,34 +1,35 @@
 const path = require("path");
-const autoprefixer = require("autoprefixer");
+
 module.exports = {
  mode: "development",
  entry: "./src/app.ts",
- output: {
-  filename: "app.js",
-  path: path.resolve(__dirname, "dist/js"),
+ devServer: {
+  static: "./dist",
+  webSocketServer: false,
  },
  module: {
   rules: [
    { test: /\.ts$/, use: "ts-loader" },
    {
-    test: /\.scss$/,
+    test: /\.css$/,
     use: [
      { loader: "style-loader" },
+     { loader: "css-loader" },
      {
-      loader: "css-loader",
+      loader: "postcss-loader",
       options: {
        sourceMap: true,
-       modules: {
-        localIdentName: "[local]_[hash:base64:5]",
+       postcssOptions: {
+        config: "postcss.config.js",
        },
       },
-     },
-     {
-      loader: "sass-loader",
-      options: { sourceMap: true },
      },
     ],
    },
   ],
+ },
+ output: {
+  filename: "app.js",
+  path: path.resolve(__dirname, "dist/js"),
  },
 };

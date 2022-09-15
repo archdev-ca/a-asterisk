@@ -1,10 +1,10 @@
 import { Cell } from "./types";
-import "./styles/app.scss";
+import "./styles/app.css";
 
 let app = "";
 
 let obj: Cell = {
- x: 1,
+ x: 4,
 };
 
 console.log({ app, obj });

@@ -1,35 +1,42 @@
 {
-  "name": "a-asterisk",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/archdev-ca/a-asterisk.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/archdev-ca/a-asterisk/issues"
-  },
-  "homepage": "https://github.com/archdev-ca/a-asterisk#readme",
-  "devDependencies": {
-    "autoprefixer": "^10.4.10",
-    "browser-sync": "^2.27.10",
-    "css-loader": "^6.7.1",
-    "gulp": "^4.0.2",
-    "gulp-typescript": "^6.0.0-alpha.1",
-    "sass": "^1.54.9",
-    "sass-loader": "^13.0.2",
-    "style-loader": "^3.3.1",
-    "ts-loader": "^9.3.1",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0"
-  },
-  "dependencies": {
-    "tailwindcss": "^3.1.8"
-  }
+ "name": "a-asterisk",
+ "version": "1.0.0",
+ "description": "",
+ "main": "index.js",
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "watch": "webpack --watch",
+  "build": "webpack",
+  "serve": "webpack serve"
+ },
+ "repository": {
+  "type": "git",
+  "url": "git+https://github.com/archdev-ca/a-asterisk.git"
+ },
+ "author": "",
+ "license": "ISC",
+ "bugs": {
+  "url": "https://github.com/archdev-ca/a-asterisk/issues"
+ },
+ "homepage": "https://github.com/archdev-ca/a-asterisk#readme",
+ "devDependencies": {
+  "autoprefixer": "^10.4.10",
+  "browser-sync": "^2.27.10",
+  "css-loader": "^6.7.1",
+  "gulp": "^4.0.2",
+  "gulp-typescript": "^6.0.0-alpha.1",
+  "postcss-import": "^15.0.0",
+  "sass": "^1.54.9",
+  "sass-loader": "^13.0.2",
+  "style-loader": "^3.3.1",
+  "ts-loader": "^9.3.1",
+  "webpack": "^5.74.0",
+  "webpack-cli": "^4.10.0",
+  "webpack-dev-server": "^4.11.0"
+ },
+ "dependencies": {
+  "postcss": "^8.4.16",
+  "postcss-loader": "^7.0.1",
+  "tailwindcss": "^3.1.8"
+ }
 }
