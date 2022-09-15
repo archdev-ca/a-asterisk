@@ -10,8 +10,7 @@ module.exports = {
  },
  devServer: {
   static: "./dist",
-  hot: false,
-  client: false,
+  hot: true,
  },
  module: {
   rules: [
@@ -38,5 +37,6 @@ module.exports = {
  output: {
   filename: "[name].js",
   path: path.resolve(__dirname, "dist"),
+  clean: true,
  },
 };
