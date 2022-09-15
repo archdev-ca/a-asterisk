@@ -9,6 +9,9 @@ module.exports = {
  devServer: {
   static: "./dist",
   hot: true,
+  watchFiles: {
+   paths: ["src/**/*"],
+  },
  },
  module: {
   rules: [
