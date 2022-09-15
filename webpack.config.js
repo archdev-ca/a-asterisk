@@ -5,8 +5,8 @@ module.exports = {
  mode: "development",
  entry: {
   app: "./src/app.ts",
-  hot: "webpack/hot/dev-server.js",
-  client: "webpack-dev-server/client/index.js?hot=true&live-reload=true",
+  // hot: "webpack/hot/dev-server.js",
+  // client: "webpack-dev-server/client/index.js?hot=true&live-reload=true",
  },
  devServer: {
   static: "./dist",
@@ -34,11 +34,9 @@ module.exports = {
    },
   ],
  },
- plugins: [new webpack.HotModuleReplacementPlugin()],
+ //  plugins: [new webpack.HotModuleReplacementPlugin()],
  output: {
   filename: "[name].js",
-  path: path.resolve(__dirname, "dist/js"),
-  clean: true,
-  publicPath: "js/",
+  path: path.resolve(__dirname, "dist"),
  },
 };
