@@ -13,6 +13,9 @@ module.exports = {
    paths: ["src/**/*"],
   },
  },
+ resolve: {
+  extensions: [".ts", ".js"],
+ },
  module: {
   rules: [
    { test: /\.ts$/, use: "ts-loader" },

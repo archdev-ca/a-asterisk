@@ -2,6 +2,71 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-.custom-body {
- background-color: #f5f5f5;
+.body * {
+ @apply box-border;
+}
+
+.cell {
+ @apply transition-all shadow-none rounded;
+ background-color: #fff;
+ width: 50px;
+ height: 50px;
+ margin: 2px;
+ /* margin-left: -1px;
+ margin-top: -1px; */
+ /* position: absolute; */
+ display: inline-block;
+ position: relative;
+ z-index: 1;
+ /* &:before,
+ &:after {
+  background-color: #fff;
+  content: " ";
+  position: absolute;
+ } */
+ &:hover {
+  @apply shadow-md scale-125;
+  &:before,
+  &:after {
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+  }
+  z-index: 2;
+ }
+}
+
+.container {
+ max-width: 830px;
+ margin: 0 auto;
+ @apply py-8;
+}
+
+.stepper {
+ & > .step {
+  display: flex;
+  align-items: center;
+  & > .icon {
+   width: 40px;
+   height: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: theme(colors.teal.400);
+   border-radius: 50%;
+   margin-right: 8px;
+   & > svg {
+    color: #fff;
+   }
+  }
+ }
+}
+
+#map {
+ /* @apply bg-slate-300; */
+ position: relative;
+ font-size: 0;
+ line-height: 0;
+ text-align: center;
 }
