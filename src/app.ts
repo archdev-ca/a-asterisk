@@ -36,4 +36,10 @@ for (let x = 0; x < config.mapSize; x++) {
 
   map.appendChild(cell);
  }
+
+ function getSurroundingNodes() {}
+
+ function findPath() {}
+
+ function tracebackNode() {}
 }
