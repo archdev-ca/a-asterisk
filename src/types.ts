@@ -3,7 +3,7 @@ export type Cell = {
  y: number;
 };
 
-export type Node = {
+export type NodeType = {
  x: number;
  y: number;
  type: string;

@@ -1,4 +1,5 @@
-import { Node } from "./types";
+import { NodeType } from "./types";
+import { Node } from "./models";
 import { config } from "./config";
 import "./styles/app.css";
 
@@ -6,15 +7,33 @@ import "./styles/app.css";
 const map = document.getElementById("map");
 
 // Data Storage
-const nodeStore = Array<Node>;
+const nodeStore = {
+ byId: {},
+ allIds: [],
+};
 
 // Generate Map
 for (let x = 0; x < config.mapSize; x++) {
  for (let y = 0; y < config.mapSize; y++) {
   let cell = document.createElement("div");
   cell.className = "cell";
-  // cell.style.left = `${x * config.cellSize}px`;
-  // cell.style.top = `${y * config.cellSize}px`;
+
+  // create node element
+  let nodeEl = document.createElement("div");
+  nodeEl.className = "node";
+
+  // create node object
+  let node = new Node(x, y, "", nodeEl);
+  node.el = nodeEl;
+  node.x = x;
+  node.y = y;
+  node.type = "";
+
+  // store node
+  let newId = `${x}:${y}`;
+  nodeStore.byId[newId] = node;
+  node.allIds.push(newId);
+
   map.appendChild(cell);
  }
 }
