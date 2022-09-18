@@ -42,4 +42,18 @@ for (let x = 0; x < config.mapSize; x++) {
  function findPath() {}
 
  function tracebackNode() {}
+
+ // 1. Push starting node to queue
+
+ // 2. Get latest from queue
+
+ // 3. Get surrounding nodes
+
+ // 4. Get GCost, HCost, and FCost of each node
+
+ // 5. Queue lowest Fcost and mark it as closed
+
+ // 6. Pull item from queue
+
+ // 7. Repeat 3 - 6
 }
