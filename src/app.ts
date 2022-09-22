@@ -1,7 +1,11 @@
 import { NodeType } from "./types";
 import { Node } from "./models";
 import { config } from "./config";
+import { ClickAction } from "./constants";
+import { handleNodeClick } from "./handlers";
 import "./styles/app.css";
+
+globalThis.clickAction = ClickAction.SET_START;
 
 // Elements
 const map = document.getElementById("map");
@@ -21,6 +25,7 @@ for (let x = 0; x < config.mapSize; x++) {
   // create node element
   let nodeEl = document.createElement("div");
   nodeEl.className = "node";
+  nodeEl.addEventListener("click", handleNodeClick);
 
   // create node object
   let node = new Node(x, y, "", nodeEl);
@@ -36,24 +41,29 @@ for (let x = 0; x < config.mapSize; x++) {
 
   map.appendChild(cell);
  }
-
- function getSurroundingNodes() {}
-
- function findPath() {}
-
- function tracebackNode() {}
-
- // 1. Push starting node to queue
-
- // 2. Get latest from queue
-
- // 3. Get surrounding nodes
-
- // 4. Get GCost, HCost, and FCost of each node
-
- // 5. Queue lowest Fcost and mark it as closed
-
- // 6. Pull item from queue
-
- // 7. Repeat 3 - 6
 }
+
+/**
+ * Set Starting Node
+ */
+
+function getSurroundingNodes() {}
+
+function findPath() {}
+
+function tracebackNode() {}
+
+// 1. Push starting node to queue
+
+// 2. Get latest from queue
+
+// 3. Get surrounding nodes
+
+// 4. Get GCost, HCost, and FCost of each node
+
+// 5. Queue lowest Fcost and mark it as closed
+//    If multiple FCost, get the one with the lowest HCost
+
+// 6. Pull item from queue
+
+// 7. Repeat 3 - 6
