@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
  mode: "development",
  entry: {
-  app: "./src/app.ts",
+  main: "./src/main.ts",
  },
  devServer: {
   static: "./dist",

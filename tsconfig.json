@@ -1,9 +1,9 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "sourceMap": true,
-    "outDir": "dist/js"
-  },
-  "include": ["src/app.ts"],
+ "compilerOptions": {
+  "target": "es6",
+  "module": "commonjs",
+  "sourceMap": true,
+  "outDir": "dist/js"
+ },
+ "include": ["src/main.ts"]
 }

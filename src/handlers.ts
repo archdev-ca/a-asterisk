@@ -1,11 +1,13 @@
-export function handleNodeClick() {
- declare global {
-  let clickAction: string;
- }
+declare global {
+  interface Window {
+    clickAction: string;
+  }
+}
 
- switch (clickAction) {
-  default:
-   console.log(clickAction);
-   break;
- }
+export function handleNodeClick() {
+  switch (window.clickAction) {
+    default:
+      console.log(window.clickAction);
+      break;
+  }
 }
