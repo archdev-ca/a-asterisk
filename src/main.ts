@@ -24,7 +24,7 @@ for (let x = 0; x < config.mapSize; x++) {
     let node = new Node(x, y, "", nodeEl);
     node.type = "";
     nodeEl.addEventListener("click", function () {
-      return app.handleClickNode();
+      return app.handleClickNode(x, y);
     });
 
     // store node

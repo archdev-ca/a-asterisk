@@ -15,11 +15,25 @@ export default class App {
     };
   }
 
-  setStartNode(x, y) {}
+  setStartNode(x, y) {
+    let id = `${x}:${y}`;
+    if (this.startNodeId == id) {
+      this.startNodeId = "";
+    } else {
+      this.startNodeId = id;
+    }
+  }
 
-  handleClickNode() {
-    console.log("app");
-    console.log(this.store);
+  handleClickNode(x, y) {
+    switch (this.clickAction) {
+      case ClickAction.SET_START:
+        this.setStartNode(x, y);
+        break;
+      case ClickAction.SET_END:
+        break;
+      case ClickAction.SET_OBSTACLE:
+        break;
+    }
   }
 
   // Add node to store
