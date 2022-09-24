@@ -1,16 +1,14 @@
 import App from "./app";
 import { Node } from "./models";
 import { config } from "./config";
-import { ClickAction } from "./constants";
 import { handleNodeClick } from "./handlers";
 import "./styles/app.css";
-
-window.clickAction = ClickAction.SET_START;
 
 // Elements
 const map = document.getElementById("map");
 
-let startNodeId = "";
+// Initialize stuff
+const app = new App();
 
 // Generate Map
 for (let x = 0; x < config.mapSize; x++) {
@@ -29,9 +27,7 @@ for (let x = 0; x < config.mapSize; x++) {
     node.type = "";
 
     // store node
-    let newId = `${x}:${y}`;
-    nodeStore.byId[newId] = node;
-    nodeStore.allIds.push(newId);
+    app.addNode(x, y, node);
 
     map?.appendChild(cell);
   }
