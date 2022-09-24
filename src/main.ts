@@ -1,7 +1,6 @@
 import App from "./app";
 import { Node } from "./models";
 import { config } from "./config";
-import { handleNodeClick } from "./handlers";
 import "./styles/app.css";
 
 // Elements
@@ -19,12 +18,14 @@ for (let x = 0; x < config.mapSize; x++) {
     // create node element
     let nodeEl = document.createElement("div");
     nodeEl.className = "node";
-    nodeEl.addEventListener("click", handleNodeClick);
     cell.appendChild(nodeEl);
 
     // create node object
     let node = new Node(x, y, "", nodeEl);
     node.type = "";
+    nodeEl.addEventListener("click", function () {
+      return app.handleClickNode();
+    });
 
     // store node
     app.addNode(x, y, node);

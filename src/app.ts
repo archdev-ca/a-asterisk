@@ -9,6 +9,17 @@ export default class App {
 
   constructor() {
     this.clickAction = ClickAction.SET_START;
+    this.store = {
+      byId: {},
+      allIds: [],
+    };
+  }
+
+  setStartNode(x, y) {}
+
+  handleClickNode() {
+    console.log("app");
+    console.log(this.store);
   }
 
   // Add node to store
