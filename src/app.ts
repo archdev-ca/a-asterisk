@@ -24,6 +24,19 @@ export default class App {
     }
   }
 
+  handleClickNext() {
+    switch (this.clickAction) {
+      case ClickAction.SET_START:
+        this.clickAction = ClickAction.SET_END;
+        break;
+      case ClickAction.SET_END:
+        this.clickAction = ClickAction.SET_OBSTACLE;
+        break;
+      case ClickAction.SET_OBSTACLE:
+        break;
+    }
+  }
+
   handleClickNode(x, y) {
     switch (this.clickAction) {
       case ClickAction.SET_START:

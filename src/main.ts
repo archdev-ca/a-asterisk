@@ -5,9 +5,13 @@ import "./styles/app.css";
 
 // Elements
 const map = document.getElementById("map");
+const nextBtn = document.getElementById("btn-next");
 
 // Initialize stuff
 const app = new App();
+nextBtn?.addEventListener("click", function () {
+  return app.handleClickNext();
+});
 
 // Generate Map
 for (let x = 0; x < config.mapSize; x++) {
