@@ -1,4 +1,5 @@
 import { NodeStoreType } from "./types";
+import { IPubSub } from "./pubsub";
 import { ClickAction } from "./constants";
 
 export default class App {
@@ -6,8 +7,10 @@ export default class App {
   store: NodeStoreType;
   startNodeId: string;
   endNodeId: string;
+  pubsub: IPubSub;
 
-  constructor() {
+  constructor(pubsub) {
+    this.pubsub = pubsub;
     this.clickAction = ClickAction.SET_START;
     this.store = {
       byId: {},
@@ -22,6 +25,7 @@ export default class App {
     } else {
       this.startNodeId = id;
     }
+    this.pubsub.publish("setStartNode");
   }
 
   handleClickNext() {

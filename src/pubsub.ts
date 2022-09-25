@@ -22,3 +22,7 @@ export default class PubSub {
     }
   }
 }
+
+export interface IPubSub {
+  publish: Function;
+}

@@ -1,4 +1,5 @@
 import App from "./app";
+import PubSub from "./pubsub";
 import { Node } from "./models";
 import { config } from "./config";
 import "./styles/app.css";
@@ -8,7 +9,8 @@ const map = document.getElementById("map");
 const nextBtn = document.getElementById("btn-next");
 
 // Initialize stuff
-const app = new App();
+const pubsub = new PubSub();
+const app = new App(pubsub);
 nextBtn?.addEventListener("click", function () {
   return app.handleClickNext();
 });
