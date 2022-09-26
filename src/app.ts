@@ -25,7 +25,11 @@ export default class App {
     } else {
       this.startNodeId = id;
     }
-    this.pubsub.publish("setStartNode");
+    this.pubsub.publish("setStartNode", this.publishStartNodeCallback);
+  }
+
+  publishStartNodeCallback() {
+    console.log("start node set");
   }
 
   handleClickNext() {
