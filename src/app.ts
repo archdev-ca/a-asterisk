@@ -1,4 +1,4 @@
-import { NodeStoreType, NodeType, BooleanMapType } from "./types";
+import { NodeStoreType, NodeType, QueueType, BooleanMapType } from "./types";
 import { IPubSub } from "./pubsub";
 import { ClickAction } from "./constants";
 
@@ -10,9 +10,11 @@ export default class App {
   pubsub: IPubSub;
   debug: boolean;
   obstacles: BooleanMapType;
-  processQueue: Array<NodeType>;
+  processQueue: QueueType;
+  width: number;
+  height: number;
 
-  constructor(pubsub) {
+  constructor(width, height, pubsub) {
     this.pubsub = pubsub;
     this.clickAction = ClickAction.SET_START;
     this.store = {
@@ -21,7 +23,12 @@ export default class App {
     };
     this.debug = true;
     this.obstacles = {};
-    this.processQueue = [];
+    this.processQueue = {
+      nodes: [],
+      map: {},
+    };
+    this.width = width;
+    this.height = height;
   }
 
   /**
@@ -115,6 +122,10 @@ export default class App {
         this.clickAction = ClickAction.SET_END;
         break;
       case ClickAction.SET_END:
+        // queue start node before moving to the next step
+        let startNode = this.store.byId[this.startNodeId];
+        this.processQueue.nodes.push(startNode);
+        this.processQueue.map[`${startNode.x}:${startNode.y}`] = true;
         this.clickAction = ClickAction.SET_OBSTACLE;
         break;
       case ClickAction.SET_OBSTACLE:
@@ -160,5 +171,151 @@ export default class App {
    */
   getStartNode() {
     return this.store.byId[this.startNodeId];
+  }
+
+  /**
+   * Check if coordinate is valid
+   * @param x
+   * @param y
+   * @returns
+   */
+  isValidCoords(x, y) {
+    let id = `${x}:${y}`;
+    let node = this.store.byId[id];
+    if (
+      // Inside the grid
+      x > -1 &&
+      x < this.width &&
+      y > -1 &&
+      y < this.height &&
+      // Node is open
+      node.open &&
+      // Not an obstacle node
+      !this.obstacles[id] &&
+      // Not start or end node
+      id != this.startNodeId
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Get the distance between two coords
+   * @param node1
+   * @param node2
+   * @returns
+   */
+  getDistance(node1, node2) {
+    return (Math.abs(node1.x - node2.x) + Math.abs(node1.y - node2.y)) * 10;
+  }
+
+  /**
+   * Get nodes surrounding the coordinates
+   * @param x
+   * @param y
+   */
+  getSurroundingNodes(x, y) {
+    let id = `${x}:${y}`;
+    let parentNode = this.store.byId[id];
+    let surroundingNodes = [] as NodeType[];
+    let endNode = this.store.byId[this.endNodeId];
+    let nodeCoords = [
+      [x, y - 1],
+      [x, y + 1],
+      [x - 1, y],
+      [x + 1, y],
+    ];
+
+    nodeCoords.forEach((coord) => {
+      let [x, y] = coord;
+      if (this.isValidCoords(x, y)) {
+        let node = this.store.byId[`${x}:${y}`];
+        let gCost = parentNode.gCost + 10;
+        let hCost = this.getDistance(node, endNode);
+        let fCost = gCost + hCost;
+        node.parentNode = parentNode;
+        if (
+          !this.processQueue.map[`${x}:${y}`] ||
+          fCost < node.fCost ||
+          (fCost == node.fCost && hCost < node.hCost)
+        ) {
+          node.fCost = fCost;
+          node.gCost = gCost;
+          node.hCost = hCost;
+          node.actor.innerHTML = `
+          <p>gCost: ${gCost}</p>
+          <p>hCost: ${hCost}</p>
+          <p>gCost: ${gCost}</p>
+          `;
+          node.actor.classList.add("open-node");
+          surroundingNodes.push(node);
+          this.processQueue.nodes.push(node);
+          this.processQueue.nodes.map[`${node.x}:${node.y}`] = true;
+        }
+      }
+    });
+
+    // if (this.isValidCoords(x, y - 1)) {
+    //   let node = this.store.byId[`${x}:${y - 1}`];
+    //   let gCost = parentNode.gCost + 10;
+    //   let hCost = this.getDistance(node, endNode);
+    //   let fCost = gCost + hCost;
+    //   node.parentNode = parentNode;
+    //   if (
+    //     !this.processQueue.map[`${x}:${y - 1}`] ||
+    //     fCost < node.fCost ||
+    //     (fCost == node.fCost && hCost < node.hCost)
+    //   ) {
+    //     node.fCost = fCost;
+    //     node.gCost = gCost;
+    //     node.hCost = hCost;
+    //     node.actor.innerHTML = `
+    //     <p>gCost: ${gCost}</p>
+    //     <p>hCost: ${hCost}</p>
+    //     <p>gCost: ${gCost}</p>
+    //     `;
+    //     node.actor.classList.add("open-node");
+    //     surroundingNodes.push(node);
+    //     this.processQueue.nodes.push(node);
+    //     this.processQueue.nodes.map[`${node.x}:${node.y}`] = true;
+    //   }
+    // }
+
+    // if (this.isValidCoords(x, y + 1)) {
+    //   let node = this.store.byId[`${x}:${y + 1}`];
+    //   let gCost = parentNode.gCost + 10;
+    //   let hCost = this.getDistance(node, endNode);
+    //   let fCost = gCost + hCost;
+    //   node.parentNode = parentNode;
+    //   if (
+    //     !this.processQueue.map[`${x}:${y + 1}`] ||
+    //     fCost < node.fCost ||
+    //     (fCost == node.fCost && hCost < node.hCost)
+    //   ) {
+    //     node.fCost = fCost;
+    //     node.gCost = gCost;
+    //     node.hCost = hCost;
+    //     node.actor.innerHTML = `
+    //     <p>gCost: ${gCost}</p>
+    //     <p>hCost: ${hCost}</p>
+    //     <p>fCost: ${fCost}</p>
+    //     `;
+    //     node.actor.classList.add("open-node");
+    //     surroundingNodes.push(node);
+    //     this.processQueue.nodes.push(node);
+    //     this.processQueue.nodes.map[`${node.x}:${node.y}`] = true;
+    //   }
+    // }
+  }
+
+  solve() {
+    // Get first item from queue
+    let node = this.processQueue.nodes.shift();
+    delete this.processQueue.nodes.map[this.startNodeId];
+    // Get surrounding nodes
+    this.getSurroundingNodes(node?.x, node?.y);
+
+    // Get fCost, hCost, gCost
   }
 }

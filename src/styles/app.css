@@ -37,11 +37,16 @@
   }
   & > .node {
     @apply rounded;
+    font-size: 8px;
+    line-height: 12px;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
+    &.open-node {
+      border: 2px solid theme(colors.green.500);
+    }
   }
 }
 

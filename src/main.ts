@@ -7,15 +7,19 @@ import "./styles/app.css";
 // Elements
 const map = document.getElementById("map");
 const nextBtn = document.getElementById("btn-next");
+const playBtn = document.getElementById("play");
 const stepper = document.getElementById("stepper");
 const steps = stepper?.getElementsByClassName("step");
 const stepLines = stepper?.getElementsByClassName("stepper-line");
 
 // Initialize stuff
 const pubsub = new PubSub();
-const app = new App(pubsub);
+const app = new App(config.mapSize, config.mapSize, pubsub);
 nextBtn?.addEventListener("click", function () {
   return app.handleClickNext();
+});
+playBtn?.addEventListener("click", function () {
+  app.solve();
 });
 
 pubsub.subscribe("onClickNext", function () {
@@ -48,7 +52,6 @@ for (let x = 0; x < config.mapSize; x++) {
 
     // create node object
     let node = new Node(x, y, "", nodeEl);
-    node.type = "";
     nodeEl.addEventListener("click", function () {
       return app.handleClickNode(x, y);
     });

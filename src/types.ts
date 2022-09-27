@@ -6,8 +6,13 @@ export type Cell = {
 export type NodeType = {
   x: number;
   y: number;
+  open: boolean;
   type: string;
   actor: HTMLDivElement;
+  gCost: number;
+  fCost: number;
+  hCost: number;
+  parentNode: NodeType;
 };
 
 export type NodeStoreType = {
@@ -17,4 +22,9 @@ export type NodeStoreType = {
 
 export type BooleanMapType = {
   [key: string]: boolean;
+};
+
+export type QueueType = {
+  nodes: Array<NodeType>;
+  map: { [key: string]: boolean };
 };
