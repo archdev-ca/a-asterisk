@@ -72,6 +72,19 @@ export default class App {
     this.pubsub.publish("onSetEndNode");
   }
 
+  setObstacleNode(x, y) {
+    let id = `${x}:${y}`;
+    let node = this.store.byId[id];
+    if (node.type === "obstacle") {
+      node.actor.classList.remove("obstacle-node");
+      node.type = "";
+    } else {
+      node.actor.classList.add("obstacle-node");
+      node.type = "obstacle;";
+    }
+    this.pubsub.publish("onSetObstacleNode");
+  }
+
   handleClickNext() {
     switch (this.clickAction) {
       case ClickAction.SET_START:
@@ -95,6 +108,7 @@ export default class App {
         this.setEndNode(x, y);
         break;
       case ClickAction.SET_OBSTACLE:
+        this.setObstacleNode(x, y);
         break;
     }
   }

@@ -36,6 +36,7 @@
     z-index: 2;
   }
   & > .node {
+    @apply rounded;
     position: absolute;
     top: 0;
     left: 0;
@@ -135,5 +136,9 @@
         right: 0;
       }
     }
+  }
+  &.obstacle-node {
+    background: transparent url(../images/crates_study_x2.png) no-repeat center;
+    background-size: cover;
   }
 }
