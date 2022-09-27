@@ -7,12 +7,28 @@ import "./styles/app.css";
 // Elements
 const map = document.getElementById("map");
 const nextBtn = document.getElementById("btn-next");
+const stepper = document.getElementById("stepper");
+const steps = stepper?.getElementsByClassName("step");
+const stepLines = stepper?.getElementsByClassName("stepper-line");
 
 // Initialize stuff
 const pubsub = new PubSub();
 const app = new App(pubsub);
 nextBtn?.addEventListener("click", function () {
   return app.handleClickNext();
+});
+
+pubsub.subscribe("onClickNext", function () {
+  if (steps && stepLines) {
+    for (let i = 0; i < steps?.length; i++) {
+      if (app.clickAction >= i) {
+        steps[i].classList.add("active");
+      }
+      if (app.clickAction > i) {
+        stepLines[i].classList.add("active");
+      }
+    }
+  }
 });
 
 pubsub.subscribe("onSetStartNode", function () {

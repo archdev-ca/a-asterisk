@@ -1,5 +1,5 @@
 export let ClickAction = {
- SET_START: "SET_START",
- SET_END: "SET_END",
- SET_OBSTACLE: "SET_OBSTACLE",
+  SET_START: 0,
+  SET_END: 1,
+  SET_OBSTACLE: 2,
 };

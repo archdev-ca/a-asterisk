@@ -3,7 +3,7 @@ import { IPubSub } from "./pubsub";
 import { ClickAction } from "./constants";
 
 export default class App {
-  clickAction: string;
+  clickAction: number;
   store: NodeStoreType;
   startNodeId: string;
   endNodeId: string;
@@ -65,6 +65,7 @@ export default class App {
       case ClickAction.SET_OBSTACLE:
         break;
     }
+    this.pubsub.publish("onClickNext");
   }
 
   handleClickNode(x, y) {
