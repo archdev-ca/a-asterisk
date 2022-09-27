@@ -1,5 +1,5 @@
-export function Node(x: number, y: number, type: string, el: HTMLElement) {
- this.x = x;
- this.y = y;
- this.el = el;
+export function Node(x: number, y: number, type: string, actor: HTMLElement) {
+  this.x = x;
+  this.y = y;
+  this.actor = actor;
 }

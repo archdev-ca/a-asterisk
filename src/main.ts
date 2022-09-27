@@ -15,6 +15,10 @@ nextBtn?.addEventListener("click", function () {
   return app.handleClickNext();
 });
 
+pubsub.subscribe("onSetStartNode", function () {
+  let startNode = app.getStartNode();
+});
+
 // Generate Map
 for (let x = 0; x < config.mapSize; x++) {
   for (let y = 0; y < config.mapSize; y++) {

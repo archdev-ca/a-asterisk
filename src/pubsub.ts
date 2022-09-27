@@ -7,7 +7,7 @@ export default class PubSub {
 
   // Subscribe to an event
   subscribe(event, callback) {
-    if (this.subscribers[event]) {
+    if (!this.subscribers[event]) {
       this.subscribers[event] = [];
     }
     this.subscribers[event].push(callback);
@@ -25,4 +25,5 @@ export default class PubSub {
 
 export interface IPubSub {
   publish: Function;
+  subscribe: Function;
 }

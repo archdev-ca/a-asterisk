@@ -7,7 +7,7 @@ export type NodeType = {
   x: number;
   y: number;
   type: string;
-  el: HTMLDivElement;
+  actor: HTMLDivElement;
 };
 
 export type NodeStoreType = {
