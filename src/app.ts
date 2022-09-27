@@ -1,4 +1,4 @@
-import { NodeStoreType, BooleanMapType } from "./types";
+import { NodeStoreType, NodeType, BooleanMapType } from "./types";
 import { IPubSub } from "./pubsub";
 import { ClickAction } from "./constants";
 
@@ -10,6 +10,7 @@ export default class App {
   pubsub: IPubSub;
   debug: boolean;
   obstacles: BooleanMapType;
+  processQueue: Array<NodeType>;
 
   constructor(pubsub) {
     this.pubsub = pubsub;
@@ -20,6 +21,7 @@ export default class App {
     };
     this.debug = true;
     this.obstacles = {};
+    this.processQueue = [];
   }
 
   setStartNode(x, y) {
