@@ -56,11 +56,13 @@ export default class App {
 
   setEndNode(x, y) {
     let id = `${x}:${y}`;
-    if (this.endNodeId == id) {
-      this.endNodeId = "";
-      let lastEndNode = this.store.byId[id];
+    let lastEndNode = this.store.byId[this.endNodeId];
+    if (lastEndNode) {
       lastEndNode.actor.classList.remove("end-node");
       lastEndNode.actor.innerHTML = "";
+    }
+    if (this.endNodeId == id) {
+      this.endNodeId = "";
     } else {
       this.endNodeId = id;
       let endNode = this.store.byId[id];
