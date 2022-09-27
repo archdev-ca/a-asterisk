@@ -24,6 +24,11 @@ export default class App {
     this.processQueue = [];
   }
 
+  /**
+   * Set the starting node
+   * @param x
+   * @param y
+   */
   setStartNode(x, y) {
     let id = `${x}:${y}`;
     this.store.allIds.forEach((id) => {
@@ -58,6 +63,11 @@ export default class App {
     this.pubsub.publish("onSetStartNode");
   }
 
+  /**
+   * Set the ending node
+   * @param x
+   * @param y
+   */
   setEndNode(x, y) {
     let id = `${x}:${y}`;
     let lastEndNode = this.store.byId[this.endNodeId];
@@ -76,6 +86,11 @@ export default class App {
     this.pubsub.publish("onSetEndNode");
   }
 
+  /**
+   * Add obstacles
+   * @param x
+   * @param y
+   */
   setObstacleNode(x, y) {
     let id = `${x}:${y}`;
     let node = this.store.byId[id];
@@ -91,6 +106,9 @@ export default class App {
     this.pubsub.publish("onSetObstacleNode");
   }
 
+  /**
+   * Go to next step
+   */
   handleClickNext() {
     switch (this.clickAction) {
       case ClickAction.SET_START:
@@ -105,6 +123,11 @@ export default class App {
     this.pubsub.publish("onClickNext");
   }
 
+  /**
+   * What to do when a node is clicked
+   * @param x
+   * @param y
+   */
   handleClickNode(x, y) {
     switch (this.clickAction) {
       case ClickAction.SET_START:
@@ -119,13 +142,22 @@ export default class App {
     }
   }
 
-  // Add node to store
+  /**
+   * Add new node
+   * @param x
+   * @param y
+   * @param node
+   */
   addNode(x, y, node) {
     let newId = `${x}:${y}`;
     this.store.byId[newId] = node;
     this.store.allIds.push(newId);
   }
 
+  /**
+   * Get the starting node
+   * @returns
+   */
   getStartNode() {
     return this.store.byId[this.startNodeId];
   }
