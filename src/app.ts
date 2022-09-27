@@ -54,6 +54,22 @@ export default class App {
     this.pubsub.publish("onSetStartNode");
   }
 
+  setEndNode(x, y) {
+    let id = `${x}:${y}`;
+    if (this.endNodeId == id) {
+      this.endNodeId = "";
+      let lastEndNode = this.store.byId[id];
+      lastEndNode.actor.classList.remove("end-node");
+      lastEndNode.actor.innerHTML = "";
+    } else {
+      this.endNodeId = id;
+      let endNode = this.store.byId[id];
+      endNode.actor.classList.add("end-node");
+      endNode.actor.innerHTML = "<span></span><span></span>";
+    }
+    this.pubsub.publish("onSetEndNode");
+  }
+
   handleClickNext() {
     switch (this.clickAction) {
       case ClickAction.SET_START:
@@ -74,6 +90,7 @@ export default class App {
         this.setStartNode(x, y);
         break;
       case ClickAction.SET_END:
+        this.setEndNode(x, y);
         break;
       case ClickAction.SET_OBSTACLE:
         break;

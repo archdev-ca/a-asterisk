@@ -95,3 +95,45 @@
   line-height: 0;
   text-align: center;
 }
+
+.node {
+  &.end-node {
+    border: 2px solid #000;
+    border-radius: 4px;
+    span:after,
+    span:before,
+    &:after,
+    &:before {
+      background-color: #000;
+      content: " ";
+      display: block;
+      width: 33%;
+      height: 33%;
+      position: absolute;
+    }
+    &:before {
+      top: 0;
+      left: 0;
+    }
+    &:after {
+      top: 0;
+      right: 0;
+    }
+    span:first-child {
+      &:before {
+        left: 33.33%;
+        top: 33.33%;
+      }
+    }
+    span:last-child {
+      &:before {
+        bottom: 0;
+        left: 0;
+      }
+      &:after {
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
+}
