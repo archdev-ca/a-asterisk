@@ -8,6 +8,7 @@ export default class App {
   startNodeId: string;
   endNodeId: string;
   pubsub: IPubSub;
+  debug: boolean;
 
   constructor(pubsub) {
     this.pubsub = pubsub;
@@ -16,6 +17,7 @@ export default class App {
       byId: {},
       allIds: [],
     };
+    this.debug = true;
   }
 
   setStartNode(x, y) {
