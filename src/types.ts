@@ -14,3 +14,7 @@ export type NodeStoreType = {
   byId: { [key: string]: NodeType };
   allIds: string[];
 };
+
+export type BooleanMapType = {
+  [key: string]: boolean;
+};

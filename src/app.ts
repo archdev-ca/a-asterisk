@@ -1,4 +1,4 @@
-import { NodeStoreType } from "./types";
+import { NodeStoreType, BooleanMapType } from "./types";
 import { IPubSub } from "./pubsub";
 import { ClickAction } from "./constants";
 
@@ -9,6 +9,7 @@ export default class App {
   endNodeId: string;
   pubsub: IPubSub;
   debug: boolean;
+  obstacles: BooleanMapType;
 
   constructor(pubsub) {
     this.pubsub = pubsub;
@@ -18,6 +19,7 @@ export default class App {
       allIds: [],
     };
     this.debug = true;
+    this.obstacles = {};
   }
 
   setStartNode(x, y) {
@@ -78,9 +80,11 @@ export default class App {
     if (node.type === "obstacle") {
       node.actor.classList.remove("obstacle-node");
       node.type = "";
+      delete this.obstacles[id];
     } else {
       node.actor.classList.add("obstacle-node");
       node.type = "obstacle;";
+      this.obstacles[id] = true;
     }
     this.pubsub.publish("onSetObstacleNode");
   }
