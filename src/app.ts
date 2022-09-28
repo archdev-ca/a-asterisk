@@ -255,67 +255,33 @@ export default class App {
         }
       }
     });
-
-    // if (this.isValidCoords(x, y - 1)) {
-    //   let node = this.store.byId[`${x}:${y - 1}`];
-    //   let gCost = parentNode.gCost + 10;
-    //   let hCost = this.getDistance(node, endNode);
-    //   let fCost = gCost + hCost;
-    //   node.parentNode = parentNode;
-    //   if (
-    //     !this.processQueue.map[`${x}:${y - 1}`] ||
-    //     fCost < node.fCost ||
-    //     (fCost == node.fCost && hCost < node.hCost)
-    //   ) {
-    //     node.fCost = fCost;
-    //     node.gCost = gCost;
-    //     node.hCost = hCost;
-    //     node.actor.innerHTML = `
-    //     <p>gCost: ${gCost}</p>
-    //     <p>hCost: ${hCost}</p>
-    //     <p>gCost: ${gCost}</p>
-    //     `;
-    //     node.actor.classList.add("open-node");
-    //     surroundingNodes.push(node);
-    //     this.processQueue.nodes.push(node);
-    //     this.processQueue.nodes.map[`${node.x}:${node.y}`] = true;
-    //   }
-    // }
-
-    // if (this.isValidCoords(x, y + 1)) {
-    //   let node = this.store.byId[`${x}:${y + 1}`];
-    //   let gCost = parentNode.gCost + 10;
-    //   let hCost = this.getDistance(node, endNode);
-    //   let fCost = gCost + hCost;
-    //   node.parentNode = parentNode;
-    //   if (
-    //     !this.processQueue.map[`${x}:${y + 1}`] ||
-    //     fCost < node.fCost ||
-    //     (fCost == node.fCost && hCost < node.hCost)
-    //   ) {
-    //     node.fCost = fCost;
-    //     node.gCost = gCost;
-    //     node.hCost = hCost;
-    //     node.actor.innerHTML = `
-    //     <p>gCost: ${gCost}</p>
-    //     <p>hCost: ${hCost}</p>
-    //     <p>fCost: ${fCost}</p>
-    //     `;
-    //     node.actor.classList.add("open-node");
-    //     surroundingNodes.push(node);
-    //     this.processQueue.nodes.push(node);
-    //     this.processQueue.nodes.map[`${node.x}:${node.y}`] = true;
-    //   }
-    // }
+    return surroundingNodes;
   }
 
   solve() {
     // Get first item from queue
     let node = this.processQueue.nodes.shift();
     delete this.processQueue.nodes.map[this.startNodeId];
-    // Get surrounding nodes
-    this.getSurroundingNodes(node?.x, node?.y);
 
-    // Get fCost, hCost, gCost
+    // Exit if there is no array from queue
+    if (!node) {
+      return;
+    }
+
+    // If node === endNode, exit
+    if (`${node?.x}:${node?.y}` === this.endNodeId) {
+      // Trace node
+      return;
+    }
+
+    // Get surrounding nodes
+    let surroundingNodes = this.getSurroundingNodes(node?.x, node?.y);
+    for (let i = 0; i < surroundingNodes.length; i++) {
+      this.processQueue.nodes.push(surroundingNodes[i]);
+      this.processQueue.map[
+        `${surroundingNodes[i].x}:${surroundingNodes[i].y}`
+      ] = true;
+    }
+    this.solve();
   }
 }
