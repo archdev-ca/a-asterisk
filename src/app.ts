@@ -243,11 +243,13 @@ export default class App {
           node.fCost = fCost;
           node.gCost = gCost;
           node.hCost = hCost;
-          node.actor.innerHTML = `
-          <p>gCost: ${gCost}</p>
-          <p>hCost: ${hCost}</p>
-          <p>gCost: ${gCost}</p>
-          `;
+          if (this.debug) {
+            node.actor.innerHTML = `
+              <p>gCost: ${gCost}</p>
+              <p>hCost: ${hCost}</p>
+              <p>gCost: ${gCost}</p>
+            `;
+          }
           node.actor.classList.add("open-node");
           surroundingNodes.push(node);
           this.processQueue.nodes.push(node);
