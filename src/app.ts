@@ -260,6 +260,19 @@ export default class App {
     return surroundingNodes;
   }
 
+  traceback(node) {
+    if (`${node.x}:${node.y}` === this.startNodeId) {
+      return;
+    }
+    if (`${node.x}:${node.y}` !== this.endNodeId) {
+      node.actor.classList.add("traced");
+    }
+    if (node.parentNode) {
+      this.traceback(node.parentNode);
+    }
+    return;
+  }
+
   solve() {
     // Get first item from queue
     let node = this.processQueue.nodes.shift();
@@ -273,6 +286,7 @@ export default class App {
     // If node === endNode, exit
     if (`${node?.x}:${node?.y}` === this.endNodeId) {
       // Trace node
+      this.traceback(node);
       return;
     }
 
