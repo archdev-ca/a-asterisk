@@ -276,7 +276,7 @@ export default class App {
       return;
     }
 
-    // Get surrounding nodes
+    // Get surrounding nodes and queue them
     let surroundingNodes = this.getSurroundingNodes(node?.x, node?.y);
     for (let i = 0; i < surroundingNodes.length; i++) {
       this.processQueue.nodes.push(surroundingNodes[i]);
