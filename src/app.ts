@@ -266,7 +266,9 @@ export default class App {
       node.actor.classList.add("traced");
     }
     if (node.parentNode) {
-      this.traceback(node.parentNode);
+      setTimeout(() => {
+        this.traceback(node.parentNode);
+      }, 50);
     }
     return;
   }
