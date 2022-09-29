@@ -124,8 +124,7 @@ export default class App {
       case ClickAction.SET_END:
         // queue start node before moving to the next step
         let startNode = this.store.byId[this.startNodeId];
-        this.processQueue.nodes.push(startNode);
-        this.processQueue.map[`${startNode.x}:${startNode.y}`] = true;
+        this.queueNode(startNode);
         this.clickAction = ClickAction.SET_OBSTACLE;
         break;
       case ClickAction.SET_OBSTACLE:
@@ -188,8 +187,8 @@ export default class App {
       x < this.width &&
       y > -1 &&
       y < this.height &&
-      // Node is open
-      node.open &&
+      // Node is not closed
+      !node.close &&
       // Not an obstacle node
       !this.obstacles[id] &&
       // Not start or end node
@@ -252,8 +251,7 @@ export default class App {
           }
           node.actor.classList.add("open-node");
           surroundingNodes.push(node);
-          this.processQueue.nodes.push(node);
-          this.processQueue.nodes.map[`${node.x}:${node.y}`] = true;
+          this.queueNode(node);
         }
       }
     });
@@ -273,6 +271,27 @@ export default class App {
     return;
   }
 
+  queueNode(node) {
+    if (node.close) {
+      return false;
+    }
+    for (let i = 0; i < this.processQueue.nodes.length; i++) {
+      let curNode = this.processQueue.nodes[i];
+
+      // Lower fCost or Lower gCost
+      if (
+        node.fCost < curNode.fCost ||
+        (node.fCost == curNode.fCost && node.hCost < curNode.hCost)
+      ) {
+        this.processQueue.nodes.splice(i, 0, node);
+        this.processQueue.nodes.map[`${node.x}:${node.y}`] = true;
+        return;
+      }
+    }
+    this.processQueue.nodes.push(node);
+    this.processQueue.nodes.map[`${node.x}:${node.y}`] = true;
+  }
+
   solve() {
     // Get first item from queue
     let node = this.processQueue.nodes.shift();
@@ -283,6 +302,7 @@ export default class App {
       return;
     }
 
+    node.close = true;
     // If node === endNode, exit
     if (`${node?.x}:${node?.y}` === this.endNodeId) {
       // Trace node
@@ -293,10 +313,7 @@ export default class App {
     // Get surrounding nodes and queue them
     let surroundingNodes = this.getSurroundingNodes(node?.x, node?.y);
     for (let i = 0; i < surroundingNodes.length; i++) {
-      this.processQueue.nodes.push(surroundingNodes[i]);
-      this.processQueue.map[
-        `${surroundingNodes[i].x}:${surroundingNodes[i].y}`
-      ] = true;
+      this.queueNode(surroundingNodes[i]);
     }
     this.solve();
   }

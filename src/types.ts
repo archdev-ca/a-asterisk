@@ -7,6 +7,7 @@ export type NodeType = {
   x: number;
   y: number;
   open: boolean;
+  close: boolean;
   type: string;
   actor: HTMLDivElement;
   gCost: number;

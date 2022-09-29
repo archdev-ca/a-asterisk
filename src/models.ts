@@ -6,6 +6,7 @@ export class Node {
   actor: HTMLDivElement;
   type: string;
   open: boolean;
+  close: boolean;
   gCost: number;
   fCost: number;
   hCost: number;
@@ -17,6 +18,7 @@ export class Node {
     this.actor = actor;
     this.type = type;
     this.open = true;
+    this.close = false;
     this.gCost = 0;
     this.fCost = 0;
     this.hCost = 0;
