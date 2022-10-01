@@ -48,6 +48,7 @@
       border: 2px solid theme(colors.green.500);
     }
     &.traced {
+      border: none !important;
       background-color: #000;
     }
   }
