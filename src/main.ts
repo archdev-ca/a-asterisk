@@ -62,28 +62,3 @@ for (let x = 0; x < config.mapSize; x++) {
     map?.appendChild(cell);
   }
 }
-
-/**
- * Set Starting Node
- */
-
-function getSurroundingNodes() {}
-
-function findPath() {}
-
-function tracebackNode() {}
-
-// 1. Push starting node to queue
-
-// 2. Get latest from queue
-
-// 3. Get surrounding nodes
-
-// 4. Get GCost, HCost, and FCost of each node
-
-// 5. Queue lowest Fcost and mark it as closed
-//    If multiple FCost, get the one with the lowest HCost
-
-// 6. Pull item from queue
-
-// 7. Repeat 3 - 6
