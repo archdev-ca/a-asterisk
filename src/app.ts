@@ -1,6 +1,7 @@
 import { NodeStoreType, NodeType, QueueType, BooleanMapType } from "./types";
 import { IPubSub } from "./pubsub";
 import { ClickAction } from "./constants";
+import Pathfinder from "./pathfinder";
 
 export default class App {
   clickAction: number;
