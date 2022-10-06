@@ -2,12 +2,14 @@ import App from "./app";
 import PubSub from "./pubsub";
 import { Node } from "./models";
 import { config } from "./config";
+import { ClickAction } from "./constants";
 import "./styles/app.css";
 
 // Elements
 const map = document.getElementById("map");
-const nextBtn = document.getElementById("btn-next");
+const nextBtn = document.getElementById("btn-next") as HTMLButtonElement;
 const playBtn = document.getElementById("play");
+const instruction = document.getElementById("instruction");
 const stepper = document.getElementById("stepper");
 const steps = stepper?.getElementsByClassName("step");
 const stepLines = stepper?.getElementsByClassName("stepper-line");
@@ -21,7 +23,6 @@ nextBtn?.addEventListener("click", function () {
 playBtn?.addEventListener("click", function () {
   app.solve();
 });
-
 pubsub.subscribe("onClickNext", function () {
   if (steps && stepLines) {
     for (let i = 0; i < steps?.length; i++) {
@@ -33,11 +34,41 @@ pubsub.subscribe("onClickNext", function () {
       }
     }
   }
+  if (app.clickAction === ClickAction.SET_START) {
+    instruction.innerHTML = "Click on a box to set a starting point";
+  }
+  if (app.clickAction === ClickAction.SET_END) {
+    instruction.innerHTML = "Click on a box to set an end point";
+  }
+  if (app.clickAction === ClickAction.SET_OBSTACLE) {
+    instruction.innerHTML = "Click on the boxes to create obstacles";
+  }
+  updateNextButtonState();
 });
-
 pubsub.subscribe("onSetStartNode", function () {
   let startNode = app.getStartNode();
 });
+pubsub.subscribe("onNodeClick", function () {
+  updateNextButtonState();
+});
+instruction.innerHTML = "Click on a box to set a starting point";
+
+function updateNextButtonState() {
+  if (app.clickAction === ClickAction.SET_START) {
+    if (!app.startNodeId) {
+      nextBtn.disabled = true;
+    } else {
+      nextBtn.disabled = false;
+    }
+  }
+  if (app.clickAction === ClickAction.SET_END) {
+    if (!app.endNodeId) {
+      nextBtn.disabled = true;
+    } else {
+      nextBtn.disabled = false;
+    }
+  }
+}
 
 // Generate Map
 for (let x = 0; x < config.mapSize; x++) {

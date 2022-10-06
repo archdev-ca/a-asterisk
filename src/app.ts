@@ -152,6 +152,7 @@ export default class App {
         this.setObstacleNode(x, y);
         break;
     }
+    this.pubsub.publish("onNodeClick");
   }
 
   /**
