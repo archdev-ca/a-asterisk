@@ -231,28 +231,31 @@ export default class App {
 
     nodeCoords.forEach((coord) => {
       let [x, y] = coord;
+      let newId = `${x}:${y}`;
       if (this.isValidCoords(x, y)) {
-        let node = this.store.byId[`${x}:${y}`];
+        let node = this.store.byId[newId];
         let gCost = parentNode.gCost + 10;
         let hCost = this.getDistance(node, endNode);
         let fCost = gCost + hCost;
         node.parentNode = parentNode;
         if (
-          !this.processQueue.map[`${x}:${y}`] ||
+          !this.processQueue.map[newId] ||
           fCost < node.fCost ||
           (fCost == node.fCost && hCost < node.hCost)
         ) {
           node.fCost = fCost;
           node.gCost = gCost;
           node.hCost = hCost;
-          if (this.debug) {
+          if (this.debug && newId !== this.endNodeId) {
             node.actor.innerHTML = `
               <p>gCost: ${gCost}</p>
               <p>hCost: ${hCost}</p>
               <p>gCost: ${gCost}</p>
             `;
           }
-          node.actor.classList.add("open-node");
+          if (newId !== this.endNodeId) {
+            node.actor.classList.add("open-node");
+          }
           surroundingNodes.push(node);
           this.queueNode(node);
         }
