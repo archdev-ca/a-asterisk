@@ -100,6 +100,7 @@ export default class App {
    * @param y
    */
   setObstacleNode(x, y) {
+    if (this.debug) console.log(`-----setObstacleNode(${x},${y})`);
     let id = `${x}:${y}`;
     let node = this.store.byId[id];
     if (node.type === "obstacle") {

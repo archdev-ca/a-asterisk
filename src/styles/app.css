@@ -49,7 +49,20 @@
     }
     &.traced {
       border: none !important;
-      background-color: #000;
+      & > p {
+        display: none;
+      }
+      &:before {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        bottom: 10px;
+        left: 10px;
+        background-color: #000;
+        @apply rounded;
+      }
     }
   }
 }
