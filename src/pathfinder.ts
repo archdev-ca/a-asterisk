@@ -1,1 +1,3 @@
-export default class Pathfinder {}
+export default class Pathfinder {
+  solve() {}
+}
